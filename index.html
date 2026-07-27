@@ -52,6 +52,10 @@
   .chip:active{transform:scale(.96)}
   .btn{transition:transform .1s,box-shadow .2s,filter .15s}
   .btn.filled:hover{filter:brightness(1.06)}
+  .steps{margin:16px 0 6px;padding-left:22px;color:var(--on-surface-variant);font-size:14.5px;line-height:1.75}
+  .steps li{margin:5px 0}
+  .steps b{color:var(--on-surface)}
+  code{background:var(--surface-container-highest);border-radius:6px;padding:1px 7px;font-size:13px;color:var(--primary)}
   .sym{font-family:"Material Symbols Rounded";font-weight:normal;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased}
   .appbar{position:sticky;top:0;z-index:5;background:var(--surface);display:flex;align-items:center;gap:14px;padding:20px 24px 12px}
   .appbar .sym{font-size:26px;color:var(--primary)}
@@ -142,11 +146,18 @@
       <span class="val" id="revval">30%</span>
     </div>
 
-    <div class="label">Get it on Meet</div>
-    <a class="btn filled" href="https://github.com/Pierry/custom-sounds-for-gmeet" target="_blank" rel="noopener" style="width:100%;justify-content:center;text-decoration:none"><span class="sym">extension</span>Install the extension</a>
-    <p class="hint">Meet blocks bookmarklets with its content security policy, so this ships as a browser extension. Download the repo, open chrome://extensions, turn on Developer mode, and Load unpacked the <code style="color:var(--primary)">extension</code> folder. This page is for previewing sounds. You configure them in the panel inside Meet.</p>
+    <div class="label">Install on Chrome</div>
+    <a class="btn filled" href="custom-sounds-for-gmeet-extension.zip" download style="width:100%;justify-content:center;text-decoration:none"><span class="sym">download</span>Download extension (.zip)</a>
+    <ol class="steps">
+      <li>Download the <b>.zip</b> above and unzip it.</li>
+      <li>Open <code>chrome://extensions</code> (paste it in the address bar).</li>
+      <li>Turn on <b>Developer mode</b> (top-right toggle).</li>
+      <li>Click <b>Load unpacked</b> and select the unzipped <code>custom-sounds-for-gmeet</code> folder.</li>
+      <li>Open a Google Meet call. A panel appears in the corner. Click <b>Configure sounds</b>. For raise hand, click <b>Learn</b> and raise your hand once.</li>
+    </ol>
+    <p class="hint">Bookmarklets are blocked by Meet's security policy, so this ships as an extension. This page is for previewing sounds. Works on Chrome and Chromium browsers (Edge, Brave).</p>
 
-    <div class="label">How to install</div>
+    <div class="label">Watch the install</div>
     <video src="media/install.mp4" controls playsinline preload="metadata"
       style="width:100%;border-radius:16px;border:1px solid var(--outline-variant);background:#000;display:block"></video>
   </main>

@@ -22,19 +22,14 @@ Google Meet ships a strict Content Security Policy (`script-src` with a nonce an
 
 The extension is unpacked (developer mode). It takes about a minute.
 
-1. Download this repository (Code, Download ZIP) and unzip it, or clone it:
-
-   ```
-   git clone https://github.com/Pierry/custom-sounds-for-gmeet
-   ```
-
-2. Open `chrome://extensions` in Chrome.
-3. Turn on Developer mode (top right).
-4. Click Load unpacked and select the `extension/` folder inside this project.
+1. Download the packaged extension: [custom-sounds-for-gmeet-extension.zip](https://pierry.github.io/custom-sounds-for-gmeet/custom-sounds-for-gmeet-extension.zip) (or clone this repo and use the `extension/` folder). Unzip it.
+2. Open `chrome://extensions` in Chrome (paste it in the address bar).
+3. Turn on Developer mode (top-right toggle).
+4. Click Load unpacked and select the unzipped `custom-sounds-for-gmeet` folder.
 5. Open a Google Meet call. A panel appears in the bottom-right corner.
-6. Click Configure sounds, choose a sound and 3D motion for each action, and Save. For raise hand, click Learn Meet's raise-hand sound and raise your hand once.
+6. Click Configure sounds, choose a sound and 3D motion for each action, and Save. For raise hand, click Learn and raise your hand once.
 
-Headphones are recommended for the 3D effect.
+Headphones are recommended for the 3D effect. Rebuild the zip after changing the extension with `bash scripts/pack-extension.sh`.
 
 ## How it works
 
