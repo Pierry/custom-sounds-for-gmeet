@@ -142,10 +142,13 @@
       <span class="val" id="revval">30%</span>
     </div>
 
-    <div class="label">Install</div>
-    <button class="btn filled" id="gen" style="width:100%;justify-content:center"><span class="sym">content_copy</span>Copy bookmarklet</button>
-    <p class="hint" id="geninfo">Builds a self-contained bookmarklet with your 3 sounds baked in. Copy it, create a new bookmark, and paste it as the URL. Or drag the link that appears below.</p>
-    <div id="draglink" style="margin-top:12px"></div>
+    <div class="label">Get it on Meet</div>
+    <a class="btn filled" href="https://github.com/Pierry/custom-sounds-for-gmeet" target="_blank" rel="noopener" style="width:100%;justify-content:center;text-decoration:none"><span class="sym">extension</span>Install the extension</a>
+    <p class="hint">Meet blocks bookmarklets with its content security policy, so this ships as a browser extension. Download the repo, open chrome://extensions, turn on Developer mode, and Load unpacked the <code style="color:var(--primary)">extension</code> folder. This page is for previewing sounds. You configure them in the panel inside Meet.</p>
+
+    <div class="label">How to install</div>
+    <video src="media/install.mp4" controls playsinline preload="metadata"
+      style="width:100%;border-radius:16px;border:1px solid var(--outline-variant);background:#000;display:block"></video>
   </main>
 
   <div class="bottom">
@@ -266,7 +269,8 @@ async function buildBookmarklet(){
   const code='('+RUNTIME.toString()+')('+JSON.stringify(C)+')';
   return 'javascript:'+encodeURIComponent(code);
 }
-document.getElementById('gen').addEventListener('click',async()=>{
+const _gen=document.getElementById('gen');
+if(_gen) _gen.addEventListener('click',async()=>{
   const info=document.getElementById('geninfo'); info.textContent='Building...';
   try{
     const bm=await buildBookmarklet(); const kb=Math.round(bm.length/1024);

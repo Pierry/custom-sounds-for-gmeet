@@ -1,0 +1,18 @@
+{
+  "name": "custom-sounds-for-gmeet-video",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.js",
+    "render:explainer": "remotion render src/index.js Explainer out/explainer.mp4 --codec=h264",
+    "render:install": "remotion render src/index.js Install out/install.mp4 --codec=h264",
+    "render:gif": "remotion render src/index.js Explainer out/explainer.gif --codec=gif --every-nth-frame=2 --scale=0.625"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.290",
+    "@remotion/google-fonts": "4.0.290",
+    "remotion": "4.0.290",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

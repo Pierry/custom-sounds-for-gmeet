@@ -1,80 +1,89 @@
 # Custom Sounds for GMeet
 
-Replace Google Meet's join, leave, and raise-hand sounds with your own, in 3D spatial audio. Configure everything in a web UI, export a single self-contained bookmarklet, and run it on any Meet call. No extension, no server at runtime.
+Replace Google Meet's join, leave, and raise-hand sounds with your own, in 3D spatial audio. A small browser extension runs on Meet and swaps the sounds automatically.
 
-![license](https://img.shields.io/badge/license-MIT-blue) ![runtime](https://img.shields.io/badge/runtime-bookmarklet-7c5cff)
+![license](https://img.shields.io/badge/license-MIT-blue) ![runtime](https://img.shields.io/badge/runtime-extension-7c5cff)
+
+![demo](media/explainer.gif)
 
 ## Features
 
 - Pick a sound per action: join, leave, raise hand.
 - 3D binaural playback (HRTF) with selectable motion (orbit, fly by, approach, overhead, static) and adjustable reverb.
-- Exports one self-contained bookmarklet. Sounds are embedded, so there are no network calls at runtime and it works under Meet's content security policy.
+- Runs automatically on `meet.google.com` after you load the extension.
 - Automatic detection of join, leave, and raise-hand events.
-- Bring your own sound: paste a URL per action instead of a preset.
-- Material Design 3 configurator UI (Lexend, dark theme, animated background).
+- Configure everything from a panel inside the call. Preview any sound on the hosted page.
+
+## Why an extension and not a bookmarklet
+
+Google Meet ships a strict Content Security Policy (`script-src` with a nonce and `strict-dynamic`). In that mode browsers ignore `unsafe-inline`, so `javascript:` bookmarklets are blocked and never execute on Meet. A browser extension content script is exempt from the page CSP, so it is the only way to run this on Meet.
+
+## Install
+
+The extension is unpacked (developer mode). It takes about a minute.
+
+1. Download this repository (Code, Download ZIP) and unzip it, or clone it:
+
+   ```
+   git clone https://github.com/Pierry/custom-sounds-for-gmeet
+   ```
+
+2. Open `chrome://extensions` in Chrome.
+3. Turn on Developer mode (top right).
+4. Click Load unpacked and select the `extension/` folder inside this project.
+5. Open a Google Meet call. A panel appears in the bottom-right corner.
+6. Click Configure sounds, choose a sound and 3D motion for each action, and Save. For raise hand, click Learn Meet's raise-hand sound and raise your hand once.
+
+Headphones are recommended for the 3D effect.
 
 ## How it works
 
-Google Meet plays its interface sounds through the Web Audio API. The bookmarklet patches `AudioBufferSourceNode.start`, identifies join, leave, and raise-hand events, suppresses Meet's own sound, and plays your sound instead through an HRTF panner and a convolution reverb. Because the audio is embedded as base64 and decoded locally, there are no external requests while a call is running.
+Google Meet plays its interface sounds through the Web Audio API. The extension has two content scripts:
+
+- `detect.js` runs in the page's main world so it can patch `AudioBufferSourceNode.start`. It identifies join, leave, and raise-hand events, suppresses Meet's own sound, and dispatches an event.
+- `ui.js` runs in the isolated world (with `chrome.runtime`). It plays the chosen sound through an HRTF panner and a convolution reverb, and provides the panel and configuration dialog.
 
 Event detection:
 
 - Join is matched by the duration of Meet's own join sound (learned cross origin from the gstatic asset via an audio element, no CORS required) or by an increase in the participant tile count.
 - Leave is matched by a decrease in the participant tile count, so chat and notification sounds are not affected.
-- Raise hand does not change the participant count, so its duration is learned once through the Learn hand button and reused afterwards.
+- Raise hand does not change the participant count, so its duration is learned once with the Learn button and reused afterwards.
 
-## Quick start
+## Preview page
 
-Open the hosted configurator: https://pierry.github.io/custom-sounds-for-gmeet/
-
-Or run it locally.
-
-Requirements: a modern browser (tested on Chrome), and a static file server such as `python3 -m http.server`. Headphones are needed to hear the 3D effect.
-
-1. Clone the repository:
-
-   ```
-   git clone https://github.com/Pierry/custom-sounds-for-gmeet
-   cd custom-sounds-for-gmeet
-   ```
-
-2. Serve the app:
-
-   ```
-   python3 -m http.server 8137
-   ```
-
-3. Open `http://localhost:8137/` and configure a sound and motion for each action.
-4. Click Copy bookmarklet. Create a new bookmark and paste the value as its URL, or drag the generated link to your bookmarks bar.
-5. Open a Google Meet call and click the bookmark. A panel appears in the corner. Use it to test each sound. For raise hand, click Learn hand and raise your hand once so the tool can learn the sound.
-
-Whenever you change a sound in the configurator, generate the bookmarklet again. The sounds are bundled in `sounds/`; `scripts/fetch-sounds.sh` can refresh or replace them.
+The hosted page at https://pierry.github.io/custom-sounds-for-gmeet/ lets you audition every sound with the 3D motions and reverb before you decide. It is a design and preview tool; the actual sound swapping is done by the extension.
 
 ## Sounds and licensing
 
 - Source code is licensed under MIT. See [LICENSE](LICENSE).
-- The bundled sounds in `sounds/` come from [Mixkit](https://mixkit.co) and are subject to the [Mixkit Free License](https://mixkit.co/license/). Credit to Mixkit and its creators.
-- You can replace any file in `sounds/` with your own audio, or paste a URL per action in the configurator.
+- The bundled sounds come from [Mixkit](https://mixkit.co) and are subject to the [Mixkit Free License](https://mixkit.co/license/). Credit to Mixkit and its creators.
+- Replace any file in `extension/sounds/` (and `sounds/` for the preview page) with your own audio to use a different set.
 
 ## Project layout
 
 ```
-index.html              Configurator UI and bookmarklet generator
-scripts/fetch-sounds.sh Downloads the default sound set into sounds/
-sounds/                 Bundled audio (Mixkit)
+extension/              The browser extension
+  manifest.json
+  detect.js             Main-world content script: detection and suppression
+  ui.js                 Isolated-world content script: 3D playback, panel, config
+  sounds/               Bundled audio
+index.html              Hosted preview and sound designer
+sounds/                 Audio for the preview page
+video/                  Remotion project for the explainer and install videos
+media/                  Rendered videos
 LICENSE
 README.md
 ```
 
 ## Limitations
 
-- The generated bookmarklet is large (roughly 100 to 300 KB) because the sounds are embedded.
-- The in-call panel uses system fonts because Meet's content security policy blocks external fonts. The configurator UI uses Material Design 3.
-- Detection depends on Meet's current assets and DOM. If Meet changes them, update `KNOWN_JOIN` or the participant selector in `index.html`.
+- The extension is loaded unpacked, so Chrome may ask you to confirm it periodically.
+- Detection depends on Meet's current assets and DOM. If Meet changes them, update `KNOWN_JOIN` or the participant selector in `extension/detect.js`.
+- Tested on Chrome.
 
 ## Contributing
 
-Issues and pull requests are welcome. Keep the runtime free of external dependencies and safe under Meet's content security policy: no network fetches while a call is running.
+Issues and pull requests are welcome.
 
 ## License
 
