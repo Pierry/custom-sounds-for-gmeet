@@ -1,0 +1,15 @@
+# Audio is not redistributed here. Fetch it locally with scripts/fetch-sounds.sh
+sounds/*.mp3
+sounds/*.wav
+sounds/*.ogg
+
+# Local iterations and tooling, not part of the product
+.archive/
+.claude/
+AGENTS.md
+CLAUDE.md
+
+# OS / editor / deps
+.DS_Store
+node_modules/
+*.log
