@@ -1,8 +1,3 @@
-# Audio is not redistributed here. Fetch it locally with scripts/fetch-sounds.sh
-sounds/*.mp3
-sounds/*.wav
-sounds/*.ogg
-
 # Local iterations and tooling, not part of the product
 .archive/
 .claude/

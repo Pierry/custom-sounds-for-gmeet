@@ -20,6 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-The MIT License above covers the source code only. Audio files are not included
-in this repository. The default sound set is downloaded by scripts/fetch-sounds.sh
-from Mixkit and is subject to the Mixkit Free License (https://mixkit.co/license/).
+The MIT License above covers the source code only. The audio files in sounds/ come
+from Mixkit and are subject to the Mixkit Free License (https://mixkit.co/license/),
+not the MIT License.

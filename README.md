@@ -23,9 +23,13 @@ Event detection:
 - Leave is matched by a decrease in the participant tile count, so chat and notification sounds are not affected.
 - Raise hand does not change the participant count, so its duration is learned once through the Learn hand button and reused afterwards.
 
-## Setup
+## Quick start
 
-Requirements: a modern browser (tested on Chrome), a static file server such as `python3 -m http.server`, and `bash` plus `curl` for the sound download. Headphones are needed to hear the 3D effect.
+Open the hosted configurator: https://pierry.github.io/custom-sounds-for-gmeet/
+
+Or run it locally.
+
+Requirements: a modern browser (tested on Chrome), and a static file server such as `python3 -m http.server`. Headphones are needed to hear the 3D effect.
 
 1. Clone the repository:
 
@@ -34,28 +38,22 @@ Requirements: a modern browser (tested on Chrome), a static file server such as 
    cd custom-sounds-for-gmeet
    ```
 
-2. Download the default sound set into `sounds/`:
-
-   ```
-   bash scripts/fetch-sounds.sh
-   ```
-
-3. Serve the app:
+2. Serve the app:
 
    ```
    python3 -m http.server 8137
    ```
 
-4. Open `http://localhost:8137/` and configure a sound and motion for each action.
-5. Click Copy bookmarklet. Create a new bookmark and paste the value as its URL, or drag the generated link to your bookmarks bar.
-6. Open a Google Meet call and click the bookmark. A panel appears in the corner. Use it to test each sound. For raise hand, click Learn hand and raise your hand once so the tool can learn the sound.
+3. Open `http://localhost:8137/` and configure a sound and motion for each action.
+4. Click Copy bookmarklet. Create a new bookmark and paste the value as its URL, or drag the generated link to your bookmarks bar.
+5. Open a Google Meet call and click the bookmark. A panel appears in the corner. Use it to test each sound. For raise hand, click Learn hand and raise your hand once so the tool can learn the sound.
 
-Whenever you change a sound in the configurator, generate the bookmarklet again.
+Whenever you change a sound in the configurator, generate the bookmarklet again. The sounds are bundled in `sounds/`; `scripts/fetch-sounds.sh` can refresh or replace them.
 
 ## Sounds and licensing
 
 - Source code is licensed under MIT. See [LICENSE](LICENSE).
-- The default sounds are downloaded from [Mixkit](https://mixkit.co) and are subject to the [Mixkit Free License](https://mixkit.co/license/). They are not redistributed in this repository. `scripts/fetch-sounds.sh` fetches them into `sounds/` for local use only.
+- The bundled sounds in `sounds/` come from [Mixkit](https://mixkit.co) and are subject to the [Mixkit Free License](https://mixkit.co/license/). Credit to Mixkit and its creators.
 - You can replace any file in `sounds/` with your own audio, or paste a URL per action in the configurator.
 
 ## Project layout
@@ -63,7 +61,7 @@ Whenever you change a sound in the configurator, generate the bookmarklet again.
 ```
 index.html              Configurator UI and bookmarklet generator
 scripts/fetch-sounds.sh Downloads the default sound set into sounds/
-sounds/                 Local audio (not committed)
+sounds/                 Bundled audio (Mixkit)
 LICENSE
 README.md
 ```
