@@ -12,6 +12,8 @@ Replace Google Meet's join, leave, and raise-hand sounds with your own, in 3D sp
 - 3D binaural playback (HRTF) with selectable motion (orbit, fly by, approach, overhead, static) and adjustable reverb.
 - Runs automatically on `meet.google.com` after you load the extension.
 - Automatic detection of join, leave, and raise-hand events.
+- On/off switch in the in-call panel to mute the custom sounds without removing the extension.
+- Reset to factory in the config dialog to clear all saved choices and return to defaults.
 - Configure everything from a panel inside the call. Preview any sound on the hosted page.
 
 ## Why an extension and not a bookmarklet
@@ -28,6 +30,7 @@ The extension is unpacked (developer mode). It takes about a minute.
 4. Click Load unpacked and select the unzipped `custom-sounds-for-gmeet` folder.
 5. Open a Google Meet call. A panel appears in the bottom-right corner.
 6. Click Configure sounds, choose a sound and 3D motion for each action, and Save. For raise hand, click Learn and raise your hand once.
+7. Use the On/off switch at the bottom of the panel to mute or unmute. If a stale sound persists after updating, open Configure sounds and click Reset to factory (click twice to confirm).
 
 Headphones are recommended for the 3D effect. Rebuild the zip after changing the extension with `bash scripts/pack-extension.sh`.
 

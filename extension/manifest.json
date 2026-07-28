@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Custom Sounds for GMeet",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Replace Google Meet join, leave, and raise-hand sounds with your own, in 3D spatial audio. Runs automatically.",
   "content_scripts": [
     {
